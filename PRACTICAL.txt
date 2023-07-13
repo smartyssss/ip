@@ -1,0 +1,1148 @@
+PRACTICAL 8
+Image Segmentation.
+Program for Edge detection using.
+Sobel, Prewitt and Canny.
+
+clc;
+clear all;
+image = imread("C:\Program Files (x86)\scilab-6.1.1\IPCV\images\checkerbox.png");
+image=rgb2gray(image);
+edgel=edge(image,'sobel');
+edge2=edge (image,'prewitt');
+edge3=edge (image,'canny');
+subplot(2,2,1)
+imshow(image);
+title ('Original Imags by APURVA-05');
+subplot(2,2,2)
+imshow(edgel);
+title('sobel Image');
+subplot(2,2,3)
+imshow(edge2);
+title('prewitt Image');
+subplot (2,2,4)
+imshow (edge3) ;
+title('canny Image');
+
+==========================================================
+
+PRACTICAL 6
+Fourier Related Transforms
+Program to compute Discrete Cosine Transforms.
+
+clc;
+clear all;
+a= imread('C:\Program Files (x86)\scilab-6.1.1\IPCV\images\measure_gray.jpg');
+dctImg=imdct(a);
+subplot(1,2,1);
+imshow(a);
+title('Original Image by Zama Sayyed 08');
+subplot(1,2,2)
+imshow(dctImg,rainbowcolormap(32));
+title('Discrete Cosine Transform');
+
+==========================================================
+
+PRACTICAL 1
+Basics
+1(A) Program to calculate number of samples required for an image
+
+clc;
+m = input ('Length of the image in inches');
+n = input ('Height of the image in inches');
+N = 400;
+N2 = 2 * N;
+Fs = m * N2 * n * N2;
+disp (Fs, 'Number of samples required to preserve the information in the image =')
+
+==========================================================
+
+PRACTICAL 1
+1(B) Program to study the effects of reducing the spatial resolution of a digital image
+
+clc;
+clear all;
+I=imread('C:\Program Files\scilab-6.1.1\IPCV\images\lena.png');
+subplot (2,3,1);
+imshow(I);
+title('Original image 512*512');
+
+I2=imresize(I,0.5);
+subplot (2,3,2);
+imshow(I2);
+title('Original image 256*256');
+
+I3=imresize(I,0.25);
+subplot (2,3,3);
+imshow(I3);
+title('Original image 128*128');
+
+I4=imresize(I,0.125);
+subplot (2,3,4);
+imshow(I4);
+title('Original image 64*64');
+
+I5=imresize(I,0.0625);
+subplot (2,3,5);
+imshow(I5);
+title('Original image 16*16');
+
+I6=imresize(I,0.03125);
+subplot (2,3,6);
+imshow(I5);
+title('Original image 8*8');
+
+==========================================================
+
+1(C) Program to study the effects of varying the number of intensity levels in a digital image.
+
+clear all;
+clc
+img = imread('C:\Program Files\scilab-6.1.1\IPCV\images\lena.png')
+img = rgb2gray(img)
+[r,c,s]=size (img)
+k=[1 2 3 4 5 6 7 8]
+for i=1:length(k)
+    d=2^i;
+    z=round (img/d);
+    subplot(3,3,i)
+    imshow(z*d);
+end
+
+==========================================================
+
+1(D) Program to perform image averaging (image addition) for noise reduction
+
+clc
+clear 
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\Lena_dark.png');
+b = imnoise(a, "gaussian");
+subplot(1,2,1);
+imshow(a);
+title("Orignal Image By Zama 05");
+subplot(1,2,2);
+imshow(b);
+title("Gaussian Image")
+
+==========================================================
+
+E) Program to compare images using subtraction for enhancing the difference between images
+
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\Lena_dark.png');
+subplot(1,2,1);
+imshow(a);
+title("Orignal Image By Zama 05");
+b = imnoise (a, "gaussian");
+//b=imread ("gaussian.jpg");
+c = imsubtract(a,b);
+subplot(1,2,2);
+imshow(c);
+imwrite(c, "Diffrence.jpg");
+title ("Diffrence Image")
+
+==========================================================
+
+PRACTICAL 2
+IMAGE ENHANCEMENT
+A. Basic Intensity Transformation functions
+Program to perform Image negation
+
+clc
+clear all
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\baboon.png');
+subplot(1,2,1);
+imshow(a);
+title('Orignial Image')
+
+[m,n] = size(a);
+for i = 1:m
+    for j= 1:n
+        c(i,j) = 255 - a (i,j)
+    end
+end
+subplot(1,2,2);
+imshow(c);
+title ('Negation image')
+
+
+==========================================================
+
+PRACTICAL 2
+IMAGE ENHANCEMENT
+A. Basic Intensity Transformation functions
+Program to perform threshold on an image
+
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\baboon.png');
+b = double(a);
+subplot(1,2,1);
+imshow(a);
+title('Orignial Image');
+
+t=100;
+[m,n] = size(b);
+for i = 1:m
+    for j = 1:n
+        if(b(i,j)<t)
+            c(i,j)=0;
+        else
+            c(i,j)=255;
+        end
+    end           
+    
+end
+
+subplot(1,2,2);
+imshow(c);
+title('Threshold Image');
+
+==========================================================
+PRACTICAL 2
+IMAGE ENHANCEMENT
+A. Basic Intensity Transformation functions
+iii.	Program to perform Log transformation
+
+clc;
+clear all;
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\baboon.png');
+b = double(a);
+subplot(1,2,1);
+imshow(a);
+title('Orignial Image');
+
+k = 10;
+[m,n] = size(b);
+for i = 1:m
+    for j = 1:n
+        c(i,j)=k*log(1+b(i,j));
+    end
+end
+subplot(1,2,2);
+imshow(uint8(c));
+title('Log Transform Image');
+
+
+==========================================================
+PRACTICAL 2
+IMAGE ENHANCEMENT
+A. Basic Intensity Transformation functions
+iv.	Power-law transformation
+
+clc;
+clear all;
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\baboon.png');
+b = double(a);
+subplot(1,2,1);
+imshow(a);
+title('Orignial Image');
+
+k = 1;
+gamma = 1;
+[m,n] = size(b);
+for i = 1:m
+    for j = 1:n
+        c(i,j)=k*(b(i,j)^gamma);
+    end
+end
+subplot(1,2,2);
+imshow(uint8(c));
+title('Power Law Image');
+
+
+==========================================================
+
+PRACTICAL 2
+IMAGE ENHANCEMENT
+A. Basic Intensity Transformation functions
+A) v. Piecewise linear transformation
+A) Contrast Stretching
+
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\Lena_dark.png');
+b = double(a);
+[m,n] = size(b);
+r1=input('Enter r1');
+s1=input('Enter s1');
+r2=input('Enter r2');
+s2=input('Enter s2');
+
+M=s1/r1;
+N=(s2-s1)/(r2-r1);
+O=(255-s2)/(255-r2);
+
+ics=zeros(m,n);
+for i=1:m
+    for j=1:n
+        if(0<b(i,j)&&b(i,j)<r1)
+            ics(i,j)=M*b(i,j);
+        else if(r1<b(i,j)&&b(i,j)<r2)
+                 ics(i,j)=N*b(i,j)-N*r1+s1;
+             else if(r2<b(i,j)&&b(i,j)<255)
+                     ics(i,j)=O*(b(i,j)-r1)+s2;
+                 end
+            end
+        end
+    end
+end
+subplot(1,2,1);
+imshow(a);
+title('Original Image');
+subplot(1,2,2);
+imshow(uint8(ics));
+title('Constrast stretch Image');
+
+==========================================================
+
+PRACTICAL 2
+IMAGE ENHANCEMENT
+A. Basic Intensity Transformation functions
+A) v. Piecewise linear transformation
+B) Gray-level slicing with and without background
+
+clc;
+clear all;
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\Lena_dark.png');
+b = double(a);
+[m,n] = size(b);
+x1 = input ("Enter x1");
+x2 = input ("Enter x2");
+
+c = zeros(m,n);
+for i = 1:m
+    for j=1:n
+        if (b(i,j)>=x1 && b(i,j)<=x2);
+            c(i,j)=255;
+        else
+            c(i,j)=0;    
+        end
+    end
+end
+
+subplot(1,2,1);
+imshow(a);
+title('Original Image');
+
+subplot(1,2,2);
+imshow(uint8(c));
+title ('Gray Level Slicing without background');
+
+
+==========================================================
+
+PRACTICAL 2
+IMAGE ENHANCEMENT
+A. Basic Intensity Transformation functions
+A) v. Piecewise linear transformation
+B) Gray-level slicing with background
+
+clc;
+clear all;
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\Lena_dark.png');
+b = double(a);
+[m,n] = size(b);
+x1=input('Enter x1');
+x2=input('Enter x2');
+
+d = zeros(m,n);
+for i=1:m
+    for j=1:n
+        if(b(i,j)>x1 && b(i,j)<=x2);
+         d(i,j)=255;
+        else
+         d(i,j)=b(i,j);
+        end
+    end
+end
+
+subplot(1,2,1);
+imshow(a);
+title('Original Image');
+
+subplot(1,2,2);
+imshow(uint8(d));
+title('Gray Level Slicing with background');
+
+==========================================================
+
+PRACTICAL 2
+IMAGE ENHANCEMENT
+A. Basic Intensity Transformation functions
+A) v. Piecewise linear transformation
+C) Bit-plane slicing
+
+
+clc;
+clear all;
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\lena.png');
+b = double(a);
+
+for i =1:8
+    f=bitget(b,i)
+    subplot(2,4,i);
+    imshow(f);
+    title("Bit plane"+string(i));
+end
+
+==========================================================
+
+PRACTICAL 2
+IMAGE ENHANCEMENT
+D. Write a program to apply smoothing and sharpening filters on grayscale and color images
+Low Pass
+
+clc;
+clear all;
+img=imread('C:\Program Files\scilab-6.1.1\IPCV\images\morpex.png');
+f=double(img);
+[m,n]=size(f);
+w=[1 1 1; 1 1 1; 1 1 1];
+for i=2:m-1
+    for j=2:n-1
+        b(i,j)=(w(1)*f(i-1,j+1)+w(2)*f(i,j+1)+(3)*f(i+1,j+1)+w(4)*f(i-1,j-1)+w(5)*f(i,j)+w(6)*f(i+1,j)+w(7)*f(i-1,j-1)+w(8)*f(i,j-1)+w(9)*f(i+1,j-1))
+    end
+end
+subplot(1,2,1);
+imshow (img);
+title('Original Image by Zama Sayyed Roll No 08');
+subplot(1,2,2);
+imshow (uint8(b));
+title('Low Pass Image');
+
+
+
+==========================================================
+PRACTICAL 2
+IMAGE ENHANCEMENT
+D. Write a program to apply smoothing and sharpening filters on grayscale and color images
+b) High Pass
+
+clc;
+clear all;
+close;
+img=imread('C:\Program Files\scilab-6.1.1\IPCV\images\morpex.png');
+f=double(img);
+[m,n]=size(f);
+w=[-1 -1 -1; -1 8 -1; -1 -1 -1];
+for i=2:m-1
+    for j=2:n-1
+        b(i,j)=(w(1)*f(i-1,j+1)+w(2)*f(i,j+1)+(3)*f(i+1,j+1)+w(4)*f(i-1,j-1)+w(5)*f(i,j)+w(6)*f(i+1,j)+w(7)*f(i-1,j-1)+w(8)*f(i,j-1)+w(9)*f(i+1,j-1))
+    end
+end
+subplot(1,2,1);
+imshow (img);
+title('Original Image by Zama Sayyed Roll No 08');
+subplot(1,2,2);
+imshow (uint8(b));
+title('High Pass Image');
+
+==========================================================
+PRACTICAL 2
+IMAGE ENHANCEMENT
+B) 1. Program to plot the histogram of an image and categorise
+
+clc;
+clear all;
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\lena.png');
+b = double(a);
+h=zeros(1,258);
+
+[row col] = size(b);
+h = zeros(row,col);
+for n = 1:1:row
+    for m=1:1:col;
+        if b(n,m) == 0;
+            b(n,m) = 1;
+        end
+        t=b(n,m);
+        h(t)=h(t)+1;
+    end
+end
+
+subplot(2,2,1);
+imshow(a);
+title('Original Image')
+subplot(2,2,2);
+bar(h);
+title('histogram Dark Image');
+
+
+==========================================================
+PRACTICAL 2
+IMAGE ENHANCEMENT
+B) 2. Program to apply histogram equalization
+
+clc;
+clear all;
+warning off;
+
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\lena.png');
+a = rgb2gray(a);
+b = size(a);
+a = double(a);
+freq_counts=zeros(1,256);
+for i=1:b(1)
+    for j=1:b(2)
+        for k=0:255
+            if a(i,j)==k
+                freq_counts(k+1)=freq_counts(k+1)+1;
+            end
+        end
+    end
+end
+pdf=(1/(b(1)*b(2)))*freq_counts;
+cdf=zeros(1,256);
+cdf(1)=pdf(1);
+for i = 2:256
+    cdf(i)=cdf(i-1)+pdf(i);
+end
+cdf = round(255*cdf);
+ep = zeros(b);
+for i = 1: b(1)
+    for j = 1: b (2)
+        t=(a(i,j)+1);
+        ep(i,j)=cdf(t);
+    end
+end
+
+hist2 = zeros (1,256);
+for i = 1 : b (2)
+    for j = 1: b(2)
+        for k = 0:255
+            if ep(i,j)==k
+                hist2(k+1)=hist2(k+1)+1;
+           end
+       end
+   end 
+end
+
+subplot(2,2,1);
+imshow(uint8(a));
+title('Original Image By Sayyed Zama 08')
+subplot(2,2,3);
+imshow(uint8(ep));
+title('Histogram equalized Image');
+subplot(2,2,2);
+plot2d3([0:255],freq_counts)
+title('Histogram of ortiginal Image');
+subplot(2,2,4);
+plot2d3([0:255],hist2)
+title('Histogram of equalized Image');
+
+
+==========================================================
+PRACTICAL 2
+IMAGE ENHANCEMENT
+C) Program to apply histogram equalization
+
+clc;
+
+disp ('Name: Zama Sayyed RollNo 08')
+x=[1,2,3;4,5,6;7,8,9];
+h=[1,1,1;1,1,1;1,1,1];
+y=conv2(x,h);
+
+disp(y,'Linear 2D convolution result y=')
+
+x=[1,2,3;4,5,6;7,8,9];
+h=[1,2,3;4,5,6;7,8,9];
+disp(h)
+h1=h(:,$:-1:1)
+disp(h1)
+h2=h1(:,$:-1:1,:)
+disp(h2)
+y=conv2(x,h2);
+disp(y,'Linear 2D cross coreelation result y=')
+
+==========================================================
+PRACTICAL 3
+Filtering in Frequency Domain
+Program to apply Discrete Fourier Transform on an image
+
+==========================================================
+
+C. Program for homomorphic filtering
+clc; clear;
+a= imread('C:\Program Files\scilab-6.1.1\IPCV\images\moon.jpg'); 
+subplot (2,3,1), imshow(a), title('Input-Image-by-Zama Sayyed-08');
+a= double (a);
+b= a;
+DO=50;
+GL=0.9
+GH=1.9
+[m, n] = size (a);
+b= b+1;
+log_b = log(b);
+subplot (2,3,2),imshow(log_b), title('Natural-logarithm'); 
+c=fft2 (log_b)
+subplot (2,3,3), imshow(uint8 (c)), title ('Fourier-Transform'); 
+dd = fftshift (c);
+for u=1:m
+    for v=1:n
+        H(u, v) = (GH-GL) * (1-exp(-1* (sqrt((u-m/2)^2+ (v-n/2)^2))^2/DO) ^2) +GL;
+        end
+end
+
+subplot (2,3,4);
+mesh (H);
+title('Homomorphic-filter');
+x=dd.*H;
+real_x=abs (ifft(x));
+subplot (2,3,5), imshow(real_x), title('Inverse-Fourier Transform');
+Final=exp (real_x);
+subplot (2,3,6), imshow(uint8 (Final)), title('Filtered - Image');
+
+==========================================================
+A. Program to apply Discrete Fourier Transform on an image
+clc;
+clear;
+I=imread('C:\Program Files\scilab-6.1.1\IPCV\images\checkerbox.png');
+subplot(1,3,1)
+imshow(I)
+title("Original Image By Zama Sayyed 08")
+
+I=double(I);
+J=fft2(I);
+subplot(1,3,2)
+imshow(J)
+title("Fourier Transform Image")
+
+L=fftshift(real(J));
+subplot(1,3,3)
+imshow(L)
+title("Shifted Fourier Transform Image")
+
+==========================================================
+B. Program to apply Low pass and High pass filters in frequency domain
+i. Ideal High Pass Filter
+
+clc;
+clear;
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\cameraman.jpg');
+a = im2double(a);
+subplot (2,3,1), imshow(a), title ('Input-Image-by- Zama Sayyed-08'); 
+[m, n]=size (a);
+DO=30;
+A = fft2(a);
+subplot (2,3,2), imshow(uint8 (abs (A))),title('F-T-of-i/p-without-shift'); 
+A_shift = fftshift (A);
+A_real = abs (A_shift);
+subplot (2,3,3),imshow(uint8 (A_real)), title('F-T-of-i/p-after-shift'); 
+A_low = zeros (m, n);
+d = zeros (m, n);
+for u=1:m
+    for v=1:n
+        d(u,v)=sqrt((u-(m/2))^2+(v-(n/2))^2);
+        if d(u,v)<=DO
+            A_high(u,v)=0; 
+            H(u,v)=0; 
+        else
+            A_high(u,v)=A_shift(u,v); 
+            H(u,v)=1;
+        end
+    end
+end
+
+subplot (2,3,4), imshow(H), title('Ideal - High Pass-Filter'); 
+subplot (2,3,5), mesh (H), title('Surface plot-LPF');
+B = fftshift (A_high);
+B_inverse =-ifft (B);
+B_real = abs (B_inverse);
+subplot (2,3,6), imshow (B_real), title('High-Pass-Image');
+
+==========================================================
+B. Program to apply Low pass and High pass filters in frequency domain
+i. Ideal Low Pass Filter
+
+clc;
+clear;
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\cameraman.jpg');
+a = im2double(a);
+subplot (2,3,1), imshow(a), title ('Input-Image-by- Zama Sayyed-08'); 
+[m, n]=size (a);
+DO=50;
+A = fft2(a);
+subplot (2,3,2), imshow(uint8 (abs (A))),title('F-T-of-i/p-without-shift'); 
+A_shift = fftshift (A);
+A_real = abs (A_shift);
+subplot (2,3,3),imshow(uint8 (A_real)), title('F-T-of-i/p-after-shift'); 
+A_low = zeros (m, n);
+d = zeros (m, n);
+for u=1:m
+    for v=1:n
+        d(u,v)=sqrt((u-(m/2))^2+(v-(n/2))^2);
+        if d(u,v)<=DO
+            A_low(u,v)=A_shift(u,v); 
+            filt(u,v)=1;
+        else
+            A_low(u, v)=0;
+            filt(u,v)=0;
+        end
+    end
+end
+
+subplot (2,3,4), imshow(filt), title('Ideal - Low-Pass-Filter'); 
+subplot (2,3,5), mesh (filt), title('Surface plot-LPF');
+B = fftshift (A_low);
+B_inverse =-ifft (B);
+B_real = abs (B_inverse);
+subplot (2,3,6), imshow (B_real), title('Low-Pass-Image');
+
+==========================================================
+B. Program to apply Low pass and High pass filters in frequency domain
+ii. Butterworth High Pass Filter
+
+clc;
+clear;
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\cameraman.jpg'); 
+a = im2double(a);
+subplot (2,3,1), imshow(a), title('Original-Image-By-Zama Sayyed-08'); 
+[m,n]=size (a);
+A = fft2(a);
+subplot (2,3,2),imshow(uint8 (abs (A))), title ('F-T-of-i/p-without-shift'); 
+A_shift = fftshift (A);
+A_real = abs (A_shift);
+subplot (2,3,3), imshow(uint8 (A_real)), title('F-T-of-i/p-after-shift');
+
+DO=30;
+d= zeros (m, n);
+order=4;
+for u=1:m
+    for v=1:n
+        d(u,v)=sqrt((u-(m/2))^2+(v-(n/2))^2);  
+        h (u,v) =1/((1+ (DO/d (u,v)) ^ (2*order)));    
+        end
+end
+subplot (2,3,4), imshow(h), title('Butterworth-High-Pass-Filter'); 
+subplot (2,3,5), mesh (h), title('Surface-plot-BHPF');
+
+B = A_shift.*h;
+B_inverse = ifft(B); 
+B_real = abs (B_inverse);
+subplot (2,3,6), imshow (B_real), title ('Butterworth-High-Pass-Image');
+
+==========================================================
+B. Program to apply Low pass and High pass filters in frequency domain
+ii. Butterworth Low Pass Filter OUTPUT
+
+clc;
+clear;
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\cameraman.jpg'); 
+a = im2double(a);
+subplot (2,3,1), imshow(a), title('Original-Image-By-Zama Sayyed-08'); 
+[m,n]=size (a);
+A = fft2(a);
+subplot (2,3,2),imshow(uint8 (abs (A))), title ('F-T-of-i/p-without-shift'); 
+A_shift = fftshift (A);
+A_real = abs (A_shift);
+subplot (2,3,3), imshow(uint8 (A_real)), title('F-T-of-i/p-after-shift');
+
+DO=50;
+d= zeros (m, n);
+order=1;
+for u=1:m
+    for v=1:n
+        d(u,v)=sqrt((u-(m/2))^2+(v-(n/2))^2);  
+        h (u,v) =1/((1+ (d (u,v) /DO) ^ (2*order)));    
+        end
+end
+subplot (2,3,4), imshow(h), title('Butterworth-Low-Pass-Filter'); 
+subplot (2,3,5), mesh (h), title('Surface-plot-BLPF');
+
+B = A_shift.*h;
+B_inverse = ifft(B); 
+B_real = abs (B_inverse);
+subplot (2,3,6), imshow (B_real), title ('Butterworth-Low-Pass-Image');
+
+==========================================================
+B. Program to apply Low pass and High pass filters in frequency domain
+iii. Gaussian Low Pass Filter
+
+clear;
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\cameraman.jpg'); 
+a = im2double(a);
+subplot (2,3,1), imshow(a), title('Input Image by Zama Sayyed 08');
+[m, n]=size (a);
+A = fft2(a);
+subplot (2,3,2),imshow(uint8 (abs (A))), title ('F-T-of-i/p-without-shift');
+A_shift = fftshift (A);
+A_real = abs (A_shift);
+subplot (2,3,3), imshow(uint8 (A_real)), title('F-T-of-i/p after shift');
+
+DO=50;
+d = zeros (m, n);
+order=1;
+for u=1:m
+    for v=1:n
+        d=sqrt((u-(m/2))^2+(v-(n/2))^2);  
+        h(u,v) =exp(-(d^2)/(2*DO.^2));
+    end
+end
+
+subplot (2,3,4), imshow(h), title('Gaussian Low-Pass-Filter'); 
+subplot (2,3,5), mesh (h), title ('Surface plot-GLPF');
+
+H_low = A_shift.*h;
+H_low_shift = fftshift (H_low);
+H_low_shift = ifft (H_low_shift);
+B_real = abs (H_low_shift);
+subplot(2,3,6), imshow(B_real), title('Gaussian Low-Pass Image');
+
+==========================================================
+B. Program to apply Low pass and High pass filters in frequency domain
+iii. Gaussian High Pass Filter
+
+clear;
+a = imread('C:\Program Files\scilab-6.1.1\IPCV\images\cameraman.jpg'); 
+a = im2double(a);
+subplot (2,3,1), imshow(a), title('Input Image by Zama Sayyed 08');
+[m, n]=size (a);
+A = fft2(a);
+subplot (2,3,2),imshow(uint8 (abs (A))), title ('F-T-of-i/p-without-shift');
+A_shift = fftshift (A);
+A_real = abs (A_shift);
+subplot (2,3,3), imshow(uint8 (A_real)), title('F-T-of-i/p after shift');
+
+DO=30;
+d = zeros (m, n);
+order=1;
+for u=1:m
+    for v=1:n
+        d=sqrt((u-(m/2))^2+(v-(n/2)).^2);  
+        h(u,v)=1-exp(-(d^2)/(2*DO.^2));
+    end
+end
+
+subplot (2,3,4), imshow(h), title('Gaussian High-Pass-Filter'); 
+subplot (2,3,5), mesh (h), title ('Surface plot-GHPF');
+
+H_low = A_shift.*h;
+H_low_shift = fftshift (H_low);
+H_low_shift = ifft (H_low_shift);
+B_real = abs (H_low_shift);
+subplot(2,3,6), imshow(B_real), title('Gaussian High-Pass Image');
+
+==========================================================
+P4 Image Denoising
+i. Program to denoise using spatial mean and median filtering
+
+clc;
+clear;
+Image=imread('C:\Program Files\scilab-6.1.1\IPCV\images\balloons.png');
+NoisyImage=imnoise (Image, 'salt & pepper'); 
+Fl=fspecial ('average', 3);
+FilterImage = imfilter (NoisyImage, Fl);
+     
+subplot (1,3,1)
+imshow(Image)
+title('Original Image BY ZAMA Sayyed-08')
+
+subplot (1,3,2) 
+imshow (NoisyImage) 
+title('Original-Image')
+
+subplot (1,3,3)
+imshow(FilterImage)
+title('Filtered Image')
+
+
+==========================================================
+P4 Image Denoising
+MEDIAN(I)
+
+clc;
+clear all;
+
+Image=imread('C:\Program Files\scilab-6.1.1\IPCV\images\balloons.png');
+a=imnoise (Image, 'salt & pepper');
+[m, n]=size (Image);
+
+for i=2:m-1
+    for j =2:n-1
+    Output(i,j)=median([a(i-1,j+1),a(i, j+1),a(i+1, j+1),a(i-1, j),a(i+1, j),a(i-1,j-1),a(i, j-1),a(i+1,j-1)]);
+    end
+end
+subplot (1,3,1);
+imshow(Image);
+title('Original-Image By Zama Sayyed 08');
+
+subplot (1,3,2);
+imshow(a);
+title('Noisy Image');
+
+subplot(1,3,3);
+imshow (Output);
+title('filter-Image');
+
+==========================================================
+P4 Image Denoising
+MEDIAN(II)
+
+clc;
+clear;
+a=imread('C:\Program Files\scilab-6.1.1\IPCV\images\balloons.png')
+Image = rgb2gray(a)
+
+NoisyImage = imnoise(Image, 'salt & pepper');
+
+output = immedian(NoisyImage, [3,3]);
+
+subplot (1,3,1);
+imshow(Image);
+title('Original Image BY ZAMA Sayyed-08');
+
+subplot (1,3,2);
+imshow(NoisyImage);
+title('Noisy Image');
+
+subplot(1,3,3);
+imshow (output);
+title('filter-Image');
+
+
+==========================================================
+P7 Morphological Image Processing
+A. Program to apply erosion, dilation, opening, closing
+
+clear;
+clc;
+
+I=imread('C:\Program Files\scilab-6.1.1\IPCV\images\morpex.png')
+subplot(2,3,1);
+imshow(I);
+title("Original Image by Zama Sayyed 08");
+se=imcreatese('rect',3,3);
+
+erode=imerode(I,se);
+subplot(2,3,2);
+imshow(erode);
+title("Eroded Image");
+
+dilate=imdilate(I,se);
+subplot(2,3,3);
+imshow(dilate);
+title("dilate Image");
+
+open=imopen(I,se);
+subplot(2,3,4);
+imshow(open);
+title("open Image");
+
+closed=imclose(I,se);
+subplot(2,3,5);
+imshow(closed);
+title("closed Image");
+
+==========================================================
+
+P7 Morphological Image Processing
+B. Program for detecting boundary of an image
+
+clear;
+clc;
+
+a=imread('C:\Program Files\scilab-6.1.1\IPCV\images\morpex.png')
+se=imcreatese('ellipse',3,3);
+
+erosion =imerode(a,se);
+Boundary = a-erosion
+
+subplot(2,2,1);
+imshow(a);
+title("Original Image By Zama Sayyed 08");
+
+subplot(2,2,2);
+imshow(erosion);
+title("Eroded Image");
+
+subplot(2,2,3);
+imshow(Boundary);
+title("Boundary Image");
+
+
+==========================================================
+P7 Morphological Image Processing
+C. Program to apply Hit-or-Miss transform
+
+clear;
+clc;
+
+a=[0 0 0 0 0 0;
+   0 0 1 1 0 0;
+   0 0 1 1 0 0;
+   0 0 0 0 0 0;
+   0 0 1 1 0 0;
+   0 0 0 0 0 0];
+   
+a=im2bw(a,0.5);
+
+se=[0 0 0 0;
+    0 1 1 0;
+    0 1 1 0;
+    0 0 0 0];
+
+s2=imhitmiss(a,se);
+
+subplot(1,2,1);
+imshow(a);
+title("Original Image By Zama Sayyed 08");
+
+subplot(1,2,2);
+imshow(s2);
+title("Hit Miss image");
+
+==========================================================
+P7 Morphological Image Processing
+D. Program to apply morphological gradient on an image
+
+clear;
+clc;
+
+a=imread('C:\Program Files\scilab-6.1.1\IPCV\images\big_sq.png')
+se=imcreatese('rect',55,55);
+
+dilation =imdilate(a,se);
+erosion = imerode(a,se);
+
+grandient=dilation-erosion
+
+subplot(1,2,1);
+imshow(a);
+title("Original Image By Zama Sayyed 08");
+
+subplot(1,2,2);
+imshow(dilation);
+title("Dilated Image");
+
+==========================================================
+P7 Morphological Image Processing
+E. Program to apply Top_Hat Bottom Hat Transformation
+
+a=imread('C:\Program Files\scilab-6.1.1\IPCV\images\mri_00.jpg')
+se=imcreatese('ellipse',10,10);
+
+opening = imopen(a,se);
+Top_Hat = a-opening
+
+closed = imopen(a,se);
+Bottom_Hat = closed-a
+
+subplot(2,3,1);
+imshow(a);
+title("Original Image By Zama Sayyed 08");
+
+subplot(2,3,2);
+imshow(opening);
+title("opening Image");
+
+subplot(2,3,3);
+imshow(Top_Hat);
+title("Top_Hat Image");
+
+subplot(2,3,4);
+imshow(closed);
+title("Closed Image");
+
+subplot(2,3,5);
+imshow(Bottom_Hat);
+title("Bottom_Hat Image");
+
+==========================================================
+P5 Color Image Processing
+A. Program to read a color image and segment into RGB planes, histogram of color images
+
+clc;
+clear;
+Image=imread('C:\Users\Abdul Razzaque\Downloads\IPCV-4.1.2-win64-61-bin\IPCV\images\balloons.png');
+r=size(Image,1);
+c=size(Image,2);
+
+R=zeros(r,c,3);
+G=zeros(r,c,3);
+B=zeros(r,c,3);
+
+R(:,:,1)=Image(:,:,1);
+G(:,:,2)=Image(:,:,2);
+B(:,:,3)=Image(:,:,3);
+
+subplot(2,2,1);
+imshow(uint8(R));
+title('Red Component Image by Abdul Razzaque');
+
+subplot(2,2,2);
+imshow(uint8(G));
+title('Green Component Image by Abdul Razzaque');
+
+subplot(2,2,3);
+imshow(uint8(B));
+title('Blue Component Image by Abdul Razzaque');
+nBins=256;
+[yR,x]=imhist(Image(:,:,1),nBins);
+[yG,x]=imhist(Image(:,:,2),nBins);
+[yB,x]=imhist(Image(:,:,3),nBins);
+
+subplot(2,2,4)
+plot(x,yR,x,yG,x,yB,"Linewidth",2);
+xlabel("RGB Intensity");
+ylabel("No. of pixels");
+
+==========================================================
+P5 Color Image Processing
+B. Program for converting from one color model to another model
+
+clc;
+clear all;
+Image=imread('C:\Users\Abdul Razzaque\Downloads\IPCV-4.1.2-win64-61-bin\IPCV\images\balloons.png');
+subplot(1,3,1);
+imshow(Image);
+title('Image in RGB Color Space by Abdul Razzaque');
+
+HSV= rgb2hsv(Image);
+imwrite(HSV,'HSV.tif');
+subplot(1,3,2);
+imshow(HSV);
+title('Image in HSV Color Space');
+
+CMY= imcomplement(Image);
+imwrite(CMY,'CMY.tif');
+subplot(1,3,3);
+imshow(CMY);
+title('Image in CMY Color Space');
+
+==========================================================
+P5 Color Image Processing
+C. Program to apply false colouring(pseudo) on a gray scale image
+
+clc;
+clear all;
+Image=imread('C:\Users\Abdul Razzaque\Downloads\IPCV-4.1.2-win64-61-bin\IPCV\images\balloons.png');
+subplot(1,3,1);
+imshow(Image);
+title('Original RGB Image by Abdul Razzaque');
+Image=rgb2gray(Image);
+subplot(1,3,2);
+imshow(Image);
+title('Gray RGB Image');
+
+subplot(1,3,3);
+imshow(Image,jetcolormap(256));
+title('Pseudo Color Image');
+
+
+==========================================================
+P4 Image Denoising
+ii. Program for Image deblurring using Weiner filters. OUTPUT
+
+clc;
+clear;
+Image=imread('C:\Users\Abdul Razzaque\Downloads\IPCV-4.1.2-win64-61-bin\IPCV\images\balloons.png');
+NoisyImage=imnoise(Image,'gaussian',0.02);
+Wienerfilter=imwiener2(NoisyImage,[5,5],0.2);
+subplot(1,3,1);
+imshow(Image);
+title('Origianl Imge by Abdul Razzaque');
+subplot(1,3,2);
+imshow(NoisyImage);
+title('Noisy image');
+subplot(1,3,3);
+imshow(Wienerfilter);
+title('wiener image');
+
+
+==========================================================
